@@ -1,0 +1,10 @@
+header {
+  width: 100vw;
+  background-color: #202c33;
+  color: white;
+}
+header h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  padding-bottom: 2rem;
+}

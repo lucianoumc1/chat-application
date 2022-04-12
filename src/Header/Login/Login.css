@@ -1,0 +1,21 @@
+.buttons__container {
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 1rem;
+}
+.btn-log--in {
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 2px solid greenyellow;
+  border-radius: 25px;
+}
+.btn-log--out {
+  color: white;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: 2px solid red;
+  border-radius: 25px;
+}
