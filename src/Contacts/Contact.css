@@ -68,6 +68,9 @@
   align-items: center;
   border: 1px solid grey;
 }
+.chat__item:hover {
+  background-color: grey;
+}
 .chat__item span {
   display: inline-block;
   color: white;
