@@ -6,7 +6,7 @@ import { FirebaseContext } from "../FirebaseContext"
 import { Chat } from "./Chat"
 
 export function Contact() {
-  const { chatState, userState } = useContext(FirebaseContext);
+  const { chatState } = useContext(FirebaseContext);
 
   return(
     <div className="contact__container">

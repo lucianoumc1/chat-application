@@ -3,7 +3,7 @@ import { FirebaseContext } from "../FirebaseContext"
 import "./Chat.css"
 
 export function InputText() {
-  const { saveMessage, getChat, chatIdState, userState } = useContext(FirebaseContext);
+  const { saveMessage, chatIdState, userState } = useContext(FirebaseContext);
   const [ messageText, setMessageText ] = useState("");
 
   const sendMessage = (e) => {
