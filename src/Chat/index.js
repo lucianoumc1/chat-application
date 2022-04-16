@@ -1,21 +1,30 @@
 import "./Chat.css";
 import { InputText } from "./InputText";
-import { MessageReceived } from"./MessageReceived.js";
-import { MessageSent } from"./MessageSent.js";
-import { FirebaseContext } from "../FirebaseContext"
+import { MessageReceived } from "./MessageReceived.js";
+import { MessageSent } from "./MessageSent.js";
+import { FirebaseContext } from "../FirebaseContext";
 import { useContext } from "react";
 
 export function Chat() {
-  const { messagesState, userState } = useContext(FirebaseContext)
+  const { chatMessages, userState, chatId } = useContext(FirebaseContext);
 
-  return(
+  return (
     <div className="chat__container">
-      {userState && messagesState.map(el => 
-      el.sender_id === userState.uid 
-      && (<MessageSent message={el.text}></MessageSent>) 
-      || (<MessageReceived message={el.text} ></MessageReceived>)
-      )}
-      <InputText/>
+      <div className="message-room__message-container">
+        {chatId &&
+          chatMessages.map(
+            (el) =>
+              (el.sender_id === userState.uid && (
+                <MessageSent message={el.text} key={el.id}></MessageSent>
+              )) || (
+                <MessageReceived
+                  message={el.text}
+                  key={el.id}
+                ></MessageReceived>
+              )
+          )}
+      </div>
+      <InputText />
     </div>
-  )
+  );
 }

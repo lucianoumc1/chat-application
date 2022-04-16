@@ -1,10 +1,9 @@
-
 export function MessageSent(props) {
-  return(
+  return (
     <div className="message__container--sent">
       <div className="container__item--sent">
         <p>{props.message}</p>
       </div>
-  </div>
-  )
+    </div>
+  );
 }

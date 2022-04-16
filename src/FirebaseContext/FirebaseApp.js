@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth  } from 'firebase/auth';
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBK6R9T2d0b7ord0VKcC8ExcE5yglDuY30",
@@ -8,7 +8,7 @@ const firebaseConfig = {
   projectId: "chat-app-e12e1",
   storageBucket: "chat-app-e12e1.appspot.com",
   messagingSenderId: "161721113113",
-  appId: "1:161721113113:web:639c2b518a49c0204b2888"
+  appId: "1:161721113113:web:639c2b518a49c0204b2888",
 };
 
 export const FirebaseApp = initializeApp(firebaseConfig);
