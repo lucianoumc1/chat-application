@@ -8,8 +8,8 @@ export function User() {
   const { userState } = useContext(FirebaseContext);
   return (
     <div className="user__container">
-      <Avatar />
-      <h4 className="user-nickname">{userState.displayName}</h4>
+      <Avatar uImage={userState.reloadUserInfo.photoUrl} />
+      <h4 className="user-nickname">{userState.email.replace("@gmail.com", "")}</h4>
       <Navbar />
     </div>
   );

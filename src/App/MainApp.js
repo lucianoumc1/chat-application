@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { FirebaseContext } from "../FirebaseContext";
-import { Login } from "../Login";
 import { ChatList } from "../ChatList";
 import { Chat } from "../Chat";
+import { LoginWithGoogle } from "../LoginWithGoogle";
 
 export function MainApp() {
   const { userState } = useContext(FirebaseContext);
 
   return (
     <main className="main-app">
-      {(!userState && <Login />) || (
+      {(!userState && <LoginWithGoogle />) || (
         <>
           <ChatList />
           <Chat />

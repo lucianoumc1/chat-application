@@ -15,8 +15,11 @@ import {
   updateDoc,
   serverTimestamp,
   doc,
+  where,
+  getDoc,
+  setDoc,
 } from "firebase/firestore";
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, cloneElement } from "react";
 
 export const FirebaseContext = createContext();
 export const FirebaseProvider = (props) => {
@@ -27,28 +30,43 @@ export const FirebaseProvider = (props) => {
   });
 
   const provider = new GoogleAuthProvider();
-  const logIn = () => signInWithPopup(Auth, provider);
+
+  const logIn = () => {
+    signInWithPopup(Auth, provider)
+      .then((result) => {
+        getUser(result.user);
+      })
+      .catch((e) => {
+        console.log(e.message);
+      });
+  };
+
   const logOut = () => signOut(Auth);
 
   // DataBase
+  // Save
   const db = getFirestore(FirebaseApp);
+
+  const saveUser = async (user) => {
+    const querySaveChat = query(doc(db, "users", user.uid));
+    const userObjet = {
+      user_name: user.displayName,
+      user_id: user.email.replace("@gmail.com", ""),
+      avatar: user.reloadUserInfo.photoUrl,
+    };
+    try {
+      await setDoc(querySaveChat, userObjet);
+      console.log("usuario agregado");
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
 
   const saveChat = async (userId1, userId2) => {
     const querySaveChat = query(collection(db, "chats"));
     const chatDoc = { timestamp: serverTimestamp(), users: [userId1, userId2] };
     try {
       await addDoc(querySaveChat, chatDoc);
-    } catch (e) {
-      console.error(e.message);
-    }
-  };
-
-  const updateChat = async (chatId) => {
-    const queryDoc = query(doc(db, "chats", chatId));
-    try {
-      await updateDoc(queryDoc, {
-        timestamp: serverTimestamp(),
-      });
     } catch (e) {
       console.error(e.message);
     }
@@ -71,7 +89,30 @@ export const FirebaseProvider = (props) => {
     }
   };
 
-  // TRAER MENSAJES EN TIEMPO REAL
+  const updateChat = async (chatId) => {
+    const queryDoc = query(doc(db, "chats", chatId));
+    try {
+      await updateDoc(queryDoc, {
+        timestamp: serverTimestamp(),
+      });
+    } catch (e) {
+      console.error(e.message);
+    }
+  };
+
+  // Get
+  const getUser = async (user) => {
+    const docRef = query(doc(db, "users", user.uid));
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("usuario existente");
+    } else {
+      console.log("usuario NO existe");
+      saveUser(user);
+    }
+  };
+  // Get Messages in realtime
   const [chatId, setChatId] = useState();
   const [chatMessages, setChatMessages] = useState([]);
 
@@ -86,7 +127,6 @@ export const FirebaseProvider = (props) => {
         querySnapshot.forEach((doc) => {
           newMessages.push({ ...doc.data(), id: doc.id });
         });
-        console.log(newMessages);
         setChatMessages(newMessages);
       });
     } catch (e) {
@@ -95,7 +135,7 @@ export const FirebaseProvider = (props) => {
     }
   }, [chatId]);
 
-  // TRAER CHATS EN TIEMPO REAL
+  // get Chats in realtime
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
@@ -103,6 +143,7 @@ export const FirebaseProvider = (props) => {
       const userId = userState.email.replace("@gmail.com", "");
       const queryMessages = query(
         collection(db, "chats"),
+        where("users", "array-contains", userId),
         orderBy("timestamp", "desc")
       );
       onSnapshot(queryMessages, (querySnapshot) => {
@@ -110,11 +151,9 @@ export const FirebaseProvider = (props) => {
         querySnapshot.forEach((doc) => {
           const usersList = doc.data().users;
           const chatPartner = usersList.filter((el) => el !== userId)[0];
-          usersList.includes(userId) &&
-            newChats.push({ id: doc.id, user: chatPartner });
+          newChats.push({ id: doc.id, user: chatPartner });
         });
         setChatList(newChats);
-        console.log(newChats);
       });
     } catch (e) {
       setChatList([]);
