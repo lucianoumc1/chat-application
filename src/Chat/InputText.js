@@ -3,17 +3,13 @@ import { FirebaseContext } from "../FirebaseContext";
 import "./Chat.css";
 
 export function InputText() {
-  const { saveMessage, chatId, userState } = useContext(FirebaseContext);
-  const [messageText, setMessageText] = useState();
+  const { saveMessage, chatId } = useContext(FirebaseContext);
+  const [messageText, setMessageText] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
-    saveMessage(chatId, userState.uid, messageText);
-    setMessageText();
-  };
-  const onChangeMessageText = (ev) => {
-    const value = ev.target.value;
-    setMessageText(value);
+    saveMessage(chatId, messageText);
+    setMessageText("");
   };
 
   return (
@@ -23,7 +19,7 @@ export function InputText() {
         type="text"
         placeholder="Escribe un mensaje aqui"
         value={messageText}
-        onChange={onChangeMessageText}
+        onChange={(ev) => setMessageText(ev.target.value)}
       />
       <input className="input_submit" type="submit" value=">" />
     </form>

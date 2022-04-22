@@ -8,7 +8,7 @@ export function Chat(props) {
 
   return (
     <div className="chat__item" onClick={() => setChatId(props.id)}>
-      <Avatar image={props.image} />
+      <Avatar uImage={props.uImage} />
       <span>{props.name}</span>
     </div>
   );

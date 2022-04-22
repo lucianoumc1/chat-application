@@ -15,18 +15,19 @@ import {
   updateDoc,
   serverTimestamp,
   doc,
-  where,
   getDoc,
   setDoc,
+  where,
+  getDocs,
 } from "firebase/firestore";
-import { createContext, useState, useEffect, cloneElement } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const FirebaseContext = createContext();
 export const FirebaseProvider = (props) => {
   // Authentification
-  const [userState, setUserState] = useState(null);
+  const [account, setAccount] = useState(null);
   onAuthStateChanged(Auth, (user) => {
-    user ? setUserState(user) : setUserState(null);
+    user ? setAccount(user) : setAccount(null);
   });
 
   const provider = new GoogleAuthProvider();
@@ -34,7 +35,7 @@ export const FirebaseProvider = (props) => {
   const logIn = () => {
     signInWithPopup(Auth, provider)
       .then((result) => {
-        getUser(result.user);
+        !getUser(result.user.uid) && saveUser(result.user);
       })
       .catch((e) => {
         console.log(e.message);
@@ -56,15 +57,19 @@ export const FirebaseProvider = (props) => {
     };
     try {
       await setDoc(querySaveChat, userObjet);
-      console.log("usuario agregado");
+      console.log("usuario agregado a la base de datos");
     } catch (e) {
       console.error(e.message);
     }
   };
 
-  const saveChat = async (userId1, userId2) => {
+  const saveChat = async (contactId) => {
     const querySaveChat = query(collection(db, "chats"));
-    const chatDoc = { timestamp: serverTimestamp(), users: [userId1, userId2] };
+    const userId = account.uid;
+    const chatDoc = {
+      timestamp: serverTimestamp(),
+      users: [userId, contactId],
+    };
     try {
       await addDoc(querySaveChat, chatDoc);
     } catch (e) {
@@ -72,8 +77,9 @@ export const FirebaseProvider = (props) => {
     }
   };
 
-  const saveMessage = async (chatId, userId, message) => {
+  const saveMessage = async (chatId, message) => {
     updateChat(chatId);
+    const userId = account.uid;
     const querySaveMessage = query(collection(db, "chats", chatId, "Messages"));
     const messageDoc = {
       sender_id: userId,
@@ -102,18 +108,28 @@ export const FirebaseProvider = (props) => {
 
   // Get
   const getUser = async (user) => {
-    const docRef = query(doc(db, "users", user.uid));
+    const docRef = query(doc(db, "users", user));
     const docSnap = await getDoc(docRef);
-
     if (docSnap.exists()) {
       console.log("usuario existente");
+      return true
     } else {
       console.log("usuario NO existe");
-      saveUser(user);
+      return false
     }
   };
+
+  const userExists = async(user) => {
+    const docRef = query(collection(db, "users"), where("user_id", "==", user));
+    const docSnap = await getDocs(docRef);
+    const result = []
+    docSnap.forEach( doc => result.push( doc.data()))
+    const isExist = result.length? true : false;
+    return isExist
+  }
+
   // Get Messages in realtime
-  const [chatId, setChatId] = useState();
+  const [chatId, setChatId] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
@@ -130,48 +146,24 @@ export const FirebaseProvider = (props) => {
         setChatMessages(newMessages);
       });
     } catch (e) {
-      console.error(e.message);
+      // console.error(e.message);
       setChatMessages([]);
     }
   }, [chatId]);
-
-  // get Chats in realtime
-  const [chatList, setChatList] = useState([]);
-
-  useEffect(() => {
-    try {
-      const userId = userState.email.replace("@gmail.com", "");
-      const queryMessages = query(
-        collection(db, "chats"),
-        where("users", "array-contains", userId),
-        orderBy("timestamp", "desc")
-      );
-      onSnapshot(queryMessages, (querySnapshot) => {
-        const newChats = [];
-        querySnapshot.forEach((doc) => {
-          const usersList = doc.data().users;
-          const chatPartner = usersList.filter((el) => el !== userId)[0];
-          newChats.push({ id: doc.id, user: chatPartner });
-        });
-        setChatList(newChats);
-      });
-    } catch (e) {
-      setChatList([]);
-    }
-  }, [userState]);
 
   return (
     <FirebaseContext.Provider
       value={{
         logIn,
         logOut,
-        userState,
+        account,
         saveChat,
         saveMessage,
         setChatId,
+        userExists,
         chatId,
-        chatList,
         chatMessages,
+        db,
       }}
     >
       {props.children}

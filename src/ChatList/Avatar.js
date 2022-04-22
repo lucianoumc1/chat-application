@@ -1,4 +1,3 @@
-import image from "../img/image.jpg";
 import "./ChatList.css";
 
 export function Avatar(props) {

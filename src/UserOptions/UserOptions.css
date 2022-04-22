@@ -1,0 +1,29 @@
+.options__container {
+  width: 10px;
+  height: 50px;
+  background-color: yellow;
+  position: relative;
+}
+.options__container:hover ul, ul:hover ul  {
+  display: block;
+  width: 150px;
+  background-color: #202c33;
+  position: absolute;
+  top: 50px;
+  left: -140px;
+} 
+.options__container ul {
+  display: none;
+}
+.options__container ul li {
+  padding: 1rem 0 ;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+}
+.options__container ul li:hover {
+  background-color:#2a3942;
+}

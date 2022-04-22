@@ -5,6 +5,7 @@ header {
   color: white;
 }
 header h1 {
+  padding-top: 3rem;
   text-align: center;
   font-size: 3rem;
 }

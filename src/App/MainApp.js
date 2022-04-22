@@ -5,11 +5,11 @@ import { Chat } from "../Chat";
 import { LoginWithGoogle } from "../LoginWithGoogle";
 
 export function MainApp() {
-  const { userState } = useContext(FirebaseContext);
+  const { account } = useContext(FirebaseContext);
 
   return (
     <main className="main-app">
-      {(!userState && <LoginWithGoogle />) || (
+      {(!account && <LoginWithGoogle />) || (
         <>
           <ChatList />
           <Chat />

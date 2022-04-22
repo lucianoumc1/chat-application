@@ -6,7 +6,7 @@ import { FirebaseContext } from "../FirebaseContext";
 import { useContext } from "react";
 
 export function Chat() {
-  const { chatMessages, userState, chatId } = useContext(FirebaseContext);
+  const { chatMessages, account, chatId } = useContext(FirebaseContext);
 
   return (
     <div className="chat__container">
@@ -14,7 +14,7 @@ export function Chat() {
         {chatId &&
           chatMessages.map(
             (el) =>
-              (el.sender_id === userState.uid && (
+              (el.sender_id === account.uid && (
                 <MessageSent message={el.text} key={el.id}></MessageSent>
               )) || (
                 <MessageReceived
