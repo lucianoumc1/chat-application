@@ -34,8 +34,8 @@ export const FirebaseProvider = (props) => {
 
   const logIn = () => {
     signInWithPopup(Auth, provider)
-      .then((result) => {
-        !getUser(result.user.uid) && saveUser(result.user);
+      .then( (result) => {
+        getUser(result) 
       })
       .catch((e) => {
         console.log(e.message);
@@ -108,14 +108,13 @@ export const FirebaseProvider = (props) => {
 
   // Get
   const getUser = async (user) => {
-    const docRef = query(doc(db, "users", user));
+    const docRef = query(doc(db, "users", user.uid));
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log("usuario existente");
-      return true
     } else {
       console.log("usuario NO existe");
-      return false
+      saveUser(user)
     }
   };
 
