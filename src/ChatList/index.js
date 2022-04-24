@@ -15,11 +15,9 @@ import { SearchBar } from "./SearchBar";
 import { Chat } from "./Chat";
 import { NewChat } from "./NewChat";
 import "./ChatList.css";
-import { async } from "@firebase/util";
 
 export function ChatList() {
   const { db, account } = useContext(FirebaseContext);
-  
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {
@@ -47,42 +45,20 @@ export function ChatList() {
 
   const [chatsProfile, setChatsProfile] = useState([]);
 
-  // useEffect(() => {
-  //   const getUsersProfile = async() => {
-  //     // debugger
-  //     try{
-  //       const arrayDeUsuarios = chatList.map(el => el.user);
-  //       const results = []
-  //       const docRef = query(collection(db, "users"), where("id", "in", arrayDeUsuarios))
-  //       const docSnap = await getDocs(docRef);
-  //       docSnap.forEach( doc => {
-  //         chatList.map( el => {
-
-  //         })
-  //       })
-  //       console.log(results)
-  //       setChatsProfile(results)
-  //     }catch(e){
-  //       console.error(e.message);
-  //     }
-  //   }
-  //   getUsersProfile();
-  // }, [chatList])
-
   useEffect(() => {
     try {
       const newChatsProfile = chatList.map(async(user) => {
         const docRef = query(doc(db, "users", user.user));
         const docSnap = await getDoc(docRef);
         const response = docSnap.data();
-        console.log(response)
         return {
           chatId: user.id,
           userName: response.user_id,
           avatar: response.avatar,
         };
       });
-      Promise.all(newChatsProfile).then((response) =>
+      Promise.all(newChatsProfile)
+      .then((response) =>
         setChatsProfile(response)
       );
     } catch (error) {
