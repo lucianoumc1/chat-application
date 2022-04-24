@@ -34,13 +34,15 @@ export const FirebaseProvider = (props) => {
 
   const logIn = () => {
     signInWithPopup(Auth, provider)
-      .then((result) => {
-        !getUser(result.user.uid) && saveUser(result.user);
-      })
-      .catch((e) => {
-        console.log(e.message);
-      });
   };
+
+  useEffect(() => {
+    const addUser = async() => {
+      const isExist = await getUser(account.uid);
+      !isExist && saveUser(account);
+    }
+    account && addUser()
+  }, [account])
 
   const logOut = () => signOut(Auth);
 
@@ -51,6 +53,7 @@ export const FirebaseProvider = (props) => {
   const saveUser = async (user) => {
     const querySaveChat = query(doc(db, "users", user.uid));
     const userObjet = {
+      id: user.uid,
       user_name: user.displayName,
       user_id: user.email.replace("@gmail.com", ""),
       avatar: user.reloadUserInfo.photoUrl,
@@ -63,9 +66,11 @@ export const FirebaseProvider = (props) => {
     }
   };
 
-  const saveChat = async (contactId) => {
+  const saveChat = async(contactId) => {
     const querySaveChat = query(collection(db, "chats"));
+    
     const userId = account.uid;
+
     const chatDoc = {
       timestamp: serverTimestamp(),
       users: [userId, contactId],
@@ -123,9 +128,9 @@ export const FirebaseProvider = (props) => {
     const docRef = query(collection(db, "users"), where("user_id", "==", user));
     const docSnap = await getDocs(docRef);
     const result = []
-    docSnap.forEach( doc => result.push( doc.data()))
-    const isExist = result.length? true : false;
-    return isExist
+    docSnap.forEach( doc => result.push( doc.id))
+    const isExist = result.length ? result : null;
+    return isExist;
   }
 
   // Get Messages in realtime
