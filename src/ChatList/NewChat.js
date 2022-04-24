@@ -8,8 +8,9 @@ export function NewChat() {
 
   const createNewChat = async(e) => {
     e.preventDefault();
-    if (await userExists(contactId)) {
-      saveChat(contactId);
+    const userId = await userExists(contactId)
+    if (userId) {
+      saveChat(userId[0]);
     }else{ alert("Usuario inexistente")}
     setcontactId("");
   };

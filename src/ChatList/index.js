@@ -8,6 +8,7 @@ import {
   where,
   orderBy,
   onSnapshot,
+  getDocs,
 } from "firebase/firestore";
 import { User } from "./User";
 import { SearchBar } from "./SearchBar";
@@ -46,8 +47,8 @@ export function ChatList() {
 
   useEffect(() => {
     try {
-      const newChatsProfile = chatList.map(async (user) => {
-        const docRef = doc(db, "users", user.user);
+      const newChatsProfile = chatList.map(async(user) => {
+        const docRef = query(doc(db, "users", user.user));
         const docSnap = await getDoc(docRef);
         const response = docSnap.data();
         return {
@@ -56,7 +57,8 @@ export function ChatList() {
           avatar: response.avatar,
         };
       });
-      Promise.all(newChatsProfile).then((response) =>
+      Promise.all(newChatsProfile)
+      .then((response) =>
         setChatsProfile(response)
       );
     } catch (error) {
