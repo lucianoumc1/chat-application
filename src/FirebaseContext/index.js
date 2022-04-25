@@ -113,13 +113,14 @@ export const FirebaseProvider = (props) => {
 
   // Get
   const getUser = async (user) => {
-    const docRef = query(doc(db, "users", user.uid));
+    const docRef = query(doc(db, "users", user));
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log("usuario existente");
+      return true
     } else {
       console.log("usuario NO existe");
-      saveUser(user)
+      return false
     }
   };
 
