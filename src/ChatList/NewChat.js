@@ -1,5 +1,7 @@
 import { useState, useContext } from "react";
 import { FirebaseContext } from "../FirebaseContext";
+import { Avatar } from "./Avatar";
+import plusIcon from "../img/plus-v2.png" 
 import "./ChatList.css";
 
 export function NewChat() {
@@ -17,14 +19,15 @@ export function NewChat() {
 
   return (
     <form className="new-chat__container" onSubmit={createNewChat}>
+      <Avatar uImage={plusIcon} />
       <input
         className="new-chat__input-text"
         type="text"
-        placeholder="Enviar Mensaje"
+        placeholder="New user"
         value={contactId}
         onChange={(ev) => setcontactId(ev.target.value)}
       />
-      <input className="new-chat__input-submit" type="submit" />
+      {/* <input className="new-chat__input-submit" type="submit" /> */}
     </form>
   );
 }
