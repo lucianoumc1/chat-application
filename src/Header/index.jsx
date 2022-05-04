@@ -1,9 +1,9 @@
 import "./Header.css";
 
 export function Header() {
-  return(
+  return (
     <header>
       <h1>Whatsapp</h1>
     </header>
-  )
+  );
 }

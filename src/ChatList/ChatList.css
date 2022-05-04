@@ -13,7 +13,7 @@
 }
 .user-nickname{
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   padding-left: 1rem;
 }
 .avatar {
@@ -43,11 +43,18 @@
   background-color: #2a3942;
   margin: 1rem 2rem 0;
   border-radius: 10px;
+  overflow: hidden;
 }
 .search-bar__search-icon {
+  display: block;
   height: 30px;
   width: 30px;
-  background-color: aqua;
+  background-color: #3648536f;
+  background-image: url("../img/search.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 2rem;
+
 }
 .search-bar__input {
   height: 100%;

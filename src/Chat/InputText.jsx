@@ -8,7 +8,7 @@ export function InputText() {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    saveMessage(chatId, messageText);
+    saveMessage(chatId.id, messageText);
     setMessageText("");
   };
 

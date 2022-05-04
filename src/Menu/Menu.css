@@ -1,16 +1,15 @@
 .options__container {
-  width: 10px;
-  height: 50px;
-  background-color: yellow;
   position: relative;
 }
 .options__container:hover ul, ul:hover ul  {
   display: block;
+  border-radius: 5px;
+  overflow: hidden;
   width: 150px;
   background-color: #202c33;
   position: absolute;
-  top: 50px;
-  left: -140px;
+  top: 40px;
+  left: -120px;
 } 
 .options__container ul {
   display: none;

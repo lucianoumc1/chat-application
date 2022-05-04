@@ -1,19 +1,19 @@
 import { useState, useContext } from "react";
 import { FirebaseContext } from "../FirebaseContext";
 import { Avatar } from "./Avatar";
-import plusIcon from "../img/plus-v2.png" 
+import plusIcon from "../img/plus-v2.png";
 import "./ChatList.css";
 
 export function NewChat() {
   const { saveChat, userExists } = useContext(FirebaseContext);
   const [contactId, setcontactId] = useState("");
 
-  const createNewChat = async(e) => {
+  const createNewChat = async (e) => {
     e.preventDefault();
-    const userId = await userExists(contactId)
+    const userId = await userExists(contactId);
     if (userId) {
       saveChat(userId[0]);
-    }else{ alert("Usuario inexistente")}
+    } else { alert("Usuario inexistente"); }
     setcontactId("");
   };
 

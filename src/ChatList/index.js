@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { FirebaseContext } from "../FirebaseContext";
 import {
   query,
   doc,
@@ -8,8 +7,8 @@ import {
   where,
   orderBy,
   onSnapshot,
-  getDocs,
 } from "firebase/firestore";
+import { FirebaseContext } from "../FirebaseContext";
 import { User } from "./User";
 import { SearchBar } from "./SearchBar";
 import { Chat } from "./Chat";
@@ -26,7 +25,7 @@ export function ChatList() {
       const queryMessages = query(
         collection(db, "chats"),
         where("users", "array-contains", userId),
-        orderBy("timestamp", "desc")
+        orderBy("timestamp", "desc"),
       );
 
       onSnapshot(queryMessages, (querySnapshot) => {
@@ -47,7 +46,7 @@ export function ChatList() {
 
   useEffect(() => {
     try {
-      const newChatsProfile = chatList.map(async(user) => {
+      const newChatsProfile = chatList.map(async (user) => {
         const docRef = query(doc(db, "users", user.user));
         const docSnap = await getDoc(docRef);
         const response = docSnap.data();
@@ -58,20 +57,21 @@ export function ChatList() {
         };
       });
       Promise.all(newChatsProfile)
-      .then((response) =>
-        setChatsProfile(response)
-      );
+        .then((response) => setChatsProfile(response));
     } catch (error) {
       console.error(error.message);
     }
   }, [chatList]);
 
+  const [chatFilter, setChatFilter] = useState("");
+  const filterChatsProfile = chatsProfile.filter((chat) => chat.userName.toLowerCase().includes(chatFilter));
+
   return (
     <div className="chat-list__container">
       <User />
-      <SearchBar />
+      <SearchBar chatFilter={chatFilter} setChatFilter={setChatFilter} />
       <div className="chat-list__users">
-        {chatsProfile.map((el) => (
+        {filterChatsProfile.map((el) => (
           <Chat
             name={el.userName}
             id={el.chatId}

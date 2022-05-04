@@ -1,0 +1,17 @@
+.loading-spinner {
+  display: block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 5px solid gray;
+  border-left-color: green;
+  animation: loading-spinner 2s infinite ease
+}
+@keyframes loading-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,8 +1,8 @@
-export function MessageReceived(props) {
+export function MessageReceived({ message }) {
   return (
     <div className="message__container--received">
       <div className="container__item--received">
-        <p>{props.message}</p>
+        <p>{message}</p>
       </div>
     </div>
   );
