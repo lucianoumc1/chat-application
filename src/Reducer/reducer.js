@@ -11,7 +11,7 @@ const ACTIONS = {
 };
 
 // eslint-disable-next-line default-param-last
-export function reducer(state = initialState, { type, payload }) {
+export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case ACTIONS.SEND_API:
       return { ...state, loagindState: true };
