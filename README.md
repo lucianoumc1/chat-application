@@ -1,6 +1,5 @@
- <div align="center">
+
  # WhatsApp Clone
- </div>
  
 ***
 ## About The Project
