@@ -1,0 +1,10 @@
+header {
+  width: 100%;
+  background-color: var(--color-primary);
+  color: white;
+}
+header h1 {
+  padding: 3rem 0;
+  text-align: center;
+  font-size: 3rem;
+}

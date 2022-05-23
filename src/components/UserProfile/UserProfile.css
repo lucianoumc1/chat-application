@@ -1,0 +1,15 @@
+.user__container{
+  width: 100%;
+  height: 80px;
+  padding-left: 1.5rem;
+  background-color: var(--color-terciary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-right: 1px solid rgba(128, 128, 128, 0.303);
+}
+.user-nickname{
+  color: white;
+  font-size: 1.5rem;
+  padding-left: 1rem;
+}

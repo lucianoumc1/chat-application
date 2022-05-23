@@ -1,0 +1,17 @@
+.new-chat__container {
+  margin: 2rem 1rem 0;
+  padding: 1rem 1rem ;
+  display: flex;
+  align-items: center;
+  border: 1px dashed grey;
+}
+.new-chat__input-text {
+  background-color: transparent;
+  width: 60%;
+  color: white;
+  font-weight: 600;
+  margin-left: 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+  outline: none;
+}

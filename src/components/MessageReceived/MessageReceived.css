@@ -1,0 +1,14 @@
+.message-received__container {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  color: white;
+}
+.message-received__item {
+  padding: 1rem 2rem;
+  background-color: gray;
+  border-radius: 10px;
+  position: relative;
+}

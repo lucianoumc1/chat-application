@@ -1,0 +1,15 @@
+.message-sent__container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  color: white;
+}
+
+.message-sent__item {
+  padding: 1rem 2rem;
+  background-color: green;
+  border-radius: 10px;
+  position: relative;
+}

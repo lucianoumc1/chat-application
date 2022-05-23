@@ -1,0 +1,39 @@
+.chat-list__container {
+  width: 30%;
+  height: 100%;
+  background-color: var(--color-secondary);
+}
+.search-bar__container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--color-background-input);
+  margin: 1rem 2rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.search-bar__search-icon {
+  height: 20px;
+  padding-left: .5rem;
+  object-fit: cover;
+  object-position: center;
+}
+.search-bar__input {
+  height: 100%;
+  width: auto;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  padding-left: 1rem;
+  font-size: 1.5rem;
+}
+.chat-list__users {
+  margin-top: 1rem;
+  border-top: 1px solid rgba(128, 128, 128, 0.303);
+  padding: 1rem;
+  min-height: 10%;
+  max-height: 70%;
+  overflow: auto;
+}
