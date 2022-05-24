@@ -37,7 +37,6 @@ export function ChatsList() {
         setChatList(newChats);
       });
     } catch (e) {
-      console.log("error");
       setChatList([]);
     }
   }, []);
@@ -59,12 +58,15 @@ export function ChatsList() {
       Promise.all(newChatsProfile)
         .then((response) => setChatsProfile(response));
     } catch (error) {
-      console.error(error.message);
+      setChatsProfile({});
     }
   }, [chatList]);
 
   const [chatFilter, setChatFilter] = useState("");
-  const filterChatsProfile = chatsProfile.filter((chat) => chat.userName.toLowerCase().includes(chatFilter));
+  const filterChatsProfile = chatsProfile.filter((chat) => {
+    const nameInLowerCase = chat.userName.toLowerCase();
+    return nameInLowerCase.includes(chatFilter);
+  });
   return (
     <div className="chat-list__container">
       <UserProfile />
