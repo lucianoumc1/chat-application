@@ -7,8 +7,9 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "plugin:react/jsx-runtime"
-    ],
+        "plugin:react/jsx-runtime",
+        "prettier"
+      ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
