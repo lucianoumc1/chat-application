@@ -83,4 +83,8 @@ h3 {
 }
 .login-with-google__container {
   width: 100%;
+  margin-bottom: 1rem;
+}
+.login-with-github__container {
+  width: 100%;
 }
