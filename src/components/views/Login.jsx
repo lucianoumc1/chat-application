@@ -4,6 +4,7 @@ import "../../styles/login.css";
 import { LoginWithGoogle } from "../LoginWithGoogle";
 import { LoginWithGithub } from "../LoginWithGithub";
 import loginValidation from "../../validationSchemas/loginValidation";
+import InputText from "../InputText";
 
 export default function Login() {
   const { errors, values, handleChange, handleSubmit } = loginValidation();
@@ -13,30 +14,22 @@ export default function Login() {
       <div className="login__container">
         <h3>Login</h3>
         <form className="login__form" onSubmit={handleSubmit}>
-          <label className="text-field">
-            <span>Email</span>
-            <input
-              type="text"
-              id="email"
-              value={values.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <div className="text-field__error-message">{errors.email}</div>
-            )}
-          </label>
-          <label className="text-field">
-            <span>Password</span>
-            <input
-              id="password"
-              type="password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            {errors.password && (
-              <div className="text-field__error-message">{errors.password}</div>
-            )}
-          </label>
+          <InputText
+            placeholder="Email"
+            type="text"
+            id="email"
+            value={values.email}
+            onChange={handleChange}
+            errorMsj={errors.email ? errors.email : null}
+          />
+          <InputText
+            placeholder="Password"
+            type="password"
+            id="password"
+            value={values.password}
+            onChange={handleChange}
+            errorMsj={errors.password ? errors.password : null}
+          />
           <button type="submit" className="primary-button">
             login
           </button>
