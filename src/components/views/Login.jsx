@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { LoginWithGoogle } from "../LoginWithGoogle";
-import loginValidation from "../../validationSchemas/loginValidation";
 import "../../styles/login.css";
+
+import { LoginWithGoogle } from "../LoginWithGoogle";
+import { LoginWithGithub } from "../LoginWithGithub";
+import loginValidation from "../../validationSchemas/loginValidation";
 
 export default function Login() {
   const { errors, values, handleChange, handleSubmit } = loginValidation();
@@ -40,6 +42,7 @@ export default function Login() {
           </button>
         </form>
         <LoginWithGoogle />
+        <LoginWithGithub />
       </div>
     </div>
   );

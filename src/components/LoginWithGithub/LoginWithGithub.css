@@ -1,0 +1,27 @@
+.login-with-github__container {
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  align-items: center;
+  margin: auto;
+  box-shadow: 0 0 4px rgba(128, 128, 128, 0.591);
+  padding: 1.2rem 2rem;
+  font-size: 1.6rem;
+  border-radius: 2px;
+  transition: all 300ms ease;
+}
+.login-with-github__logo {
+  height: 25px;
+  width: 25px;
+  background-image: url("../../assets/github.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 1rem;
+}
+.login-with-github__container:hover {
+  box-shadow: 0 0 4px rgba(85, 85, 85, 0.7);
+  cursor: pointer;
+}
