@@ -14,7 +14,7 @@ export function LoginWithGoogle() {
       onClick={() => logIn(googleProvider)}
     >
       <span className="login-with-google__logo" />
-      Sign in with Github
+      Sign in with Google
     </button>
   );
 }

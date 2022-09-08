@@ -15,7 +15,6 @@ export default function loginValidation() {
   });
 
   const onSubmit = (values) => {
-    // alert(JSON.stringify(values, null, 2));
     signIn(values);
   };
 
