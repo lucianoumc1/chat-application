@@ -1,15 +1,18 @@
+import "./UserProfile.css";
+
 import { useContext } from "react";
 import { Avatar } from "../Avatar";
 import { Menu } from "../Menu";
 import { FirebaseContext } from "../../contexts/FirebaseContext";
-import "./UserProfile.css";
+import authWithPopup from "../../services/authWithPopup";
 
 export function UserProfile() {
-  const { account, logOut } = useContext(FirebaseContext);
+  const { account } = useContext(FirebaseContext);
+  const { logOut } = authWithPopup();
   return (
     <div className="user__container">
-      <Avatar uImage={account.reloadUserInfo.photoUrl} />
-      <h4 className="user-nickname">{account.email.replace("@gmail.com", "")}</h4>
+      <Avatar uImage={account.avatar} />
+      <h4 className="user-nickname">{account.user_id}</h4>
       <Menu>
         <li onClick={logOut}>Log out</li>
       </Menu>

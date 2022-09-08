@@ -9,7 +9,6 @@ import {
   serverTimestamp,
   doc,
   getDoc,
-  setDoc,
   where,
   getDocs,
 } from "firebase/firestore";
@@ -18,38 +17,24 @@ import { Auth, db } from "./FirebaseApp";
 
 export const FirebaseContext = createContext();
 export function FirebaseProvider({ children }) {
-  // login whit google
   const [account, setAccount] = useState(null);
 
   // AGREEGAR USUARIOS
-
   const getUser = async (user) => {
     const docRef = query(doc(db, "users", user));
-    const docSnap = await getDoc(docRef);
-    return docSnap.exists();
+    const userData = await getDoc(docRef);
+    return userData.data();
   };
 
-  const saveUser = (user) => {
-    const querySaveChat = query(doc(db, "users", user.uid));
-    const docData = {
-      id: user.uid,
-      user_name: user.displayName,
-      user_id: user.email.replace("@gmail.com", ""),
-      avatar: user.reloadUserInfo.photoUrl,
-    };
-    setDoc(querySaveChat, docData).catch((e) => console.error(e.message));
-  };
-
-  // useEffect(() => {
-  //   onAuthStateChanged(Auth, (user) => {
-  //     if (user) {
-  //       getUser(user.uid).then((data) => !data && saveUser(user));
-  //       setAccount(user);
-  //     } else {
-  //       setAccount(null);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    onAuthStateChanged(Auth, async (user) => {
+      if (user) {
+        getUser(user.uid).then((data) => data && setAccount(data));
+      } else {
+        setAccount(null);
+      }
+    });
+  }, []);
 
   // chat functions
 
@@ -57,7 +42,7 @@ export function FirebaseProvider({ children }) {
     const docRef = query(collection(db, "chats"));
     const docData = {
       timestamp: serverTimestamp(),
-      users: [account.uid, contactUid],
+      users: [account.id, contactUid],
     };
     addDoc(docRef, docData).catch((err) => console.error(err.message));
   };
@@ -72,7 +57,7 @@ export function FirebaseProvider({ children }) {
     updateChat(chatId);
     const docRef = query(collection(db, "chats", chatId, "Messages"));
     const docData = {
-      sender_id: account.uid,
+      sender_id: account.id,
       text: message,
       timestamp: serverTimestamp(),
       state: false,

@@ -21,11 +21,11 @@ export function ChatsList() {
 
   useEffect(() => {
     try {
-      const userId = account.uid;
+      const userId = account.id;
       const queryMessages = query(
         collection(db, "chats"),
         where("users", "array-contains", userId),
-        orderBy("timestamp", "desc"),
+        orderBy("timestamp", "desc")
       );
 
       onSnapshot(queryMessages, (querySnapshot) => {
@@ -55,8 +55,9 @@ export function ChatsList() {
           avatar: response.avatar,
         };
       });
-      Promise.all(newChatsProfile)
-        .then((response) => setChatsProfile(response));
+      Promise.all(newChatsProfile).then((response) =>
+        setChatsProfile(response)
+      );
     } catch (error) {
       setChatsProfile({});
     }
