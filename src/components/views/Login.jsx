@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import "../../styles/login.css";
+import "../../styles/views.css";
+
+import { Link } from "react-router-dom";
 
 import { LoginWithGoogle } from "../LoginWithGoogle";
 import { LoginWithGithub } from "../LoginWithGithub";
@@ -34,8 +36,13 @@ export default function Login() {
             login
           </button>
         </form>
-        <LoginWithGoogle />
-        <LoginWithGithub />
+        <Link to="/register" className="link">
+          Create account
+        </Link>
+        <div className="login__services">
+          <LoginWithGoogle />
+          <LoginWithGithub />
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import "../../styles/register.css";
+import "../../styles/views.css";
+
+import { Link } from "react-router-dom";
 
 import registerValidation from "../../validationSchemas/registerValidation";
 import InputText from "../InputText";
@@ -57,6 +59,11 @@ export default function Register() {
             register
           </button>
         </form>
+        <span>
+          <Link to="/login" className="link">
+            Already account
+          </Link>
+        </span>
       </div>
     </div>
   );

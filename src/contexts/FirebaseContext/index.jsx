@@ -13,10 +13,12 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Auth, db } from "./FirebaseApp";
 
 export const FirebaseContext = createContext();
 export function FirebaseProvider({ children }) {
+  const navigate = useNavigate();
   const [account, setAccount] = useState(null);
 
   // AGREEGAR USUARIOS
@@ -29,7 +31,9 @@ export function FirebaseProvider({ children }) {
   useEffect(() => {
     onAuthStateChanged(Auth, async (user) => {
       if (user) {
-        getUser(user.uid).then((data) => data && setAccount(data));
+        getUser(user.uid)
+          .then((data) => data && setAccount(data))
+          .then(() => navigate("/"));
       } else {
         setAccount(null);
       }
@@ -82,6 +86,7 @@ export function FirebaseProvider({ children }) {
   const [chatId, setChatId] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
       const queryGetMessages = query(
