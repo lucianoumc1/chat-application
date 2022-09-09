@@ -1,12 +1,13 @@
 .login__wrapper {
   width: 100%;
-  height: 100%;
-  text-align: center;
+  height: calc(100vh - 10rem);
   position: relative;
+  text-align: center;
 }
 h3 {
   font-size: 1.8rem;
   margin-bottom: 2rem;
+  text-align: center;
 }
 .login__container {
   border: 1px solid var(--color-gray-light);
@@ -53,11 +54,31 @@ h3 {
 }
 .login-with-google__container {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 .login-with-github__container {
   width: 100%;
 }
 .text-field {
   width: 100%;
+}
+.link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: var(--color-primary);
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+.link:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+.login__services {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.2rem;
 }

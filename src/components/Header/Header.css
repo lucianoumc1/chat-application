@@ -2,6 +2,7 @@ header {
   width: 100%;
   background-color: var(--color-primary);
   color: white;
+  height: 10rem;
 }
 header h1 {
   padding: 3rem 0;
