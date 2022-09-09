@@ -16,9 +16,7 @@ export default function authWithEmailAndPassword() {
       user_id: userId,
       avatar: user.avatar,
     };
-    setDoc(querySaveChat, docData)
-      .then((res) => console.log(res))
-      .catch((e) => console.error(e.message));
+    setDoc(querySaveChat, docData).catch((e) => console.error(e.message));
   };
 
   const createUser = (data) => {
