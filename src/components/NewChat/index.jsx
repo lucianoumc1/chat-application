@@ -1,8 +1,11 @@
+import "./NewChat.css";
+
 import { useState, useContext } from "react";
 import { FirebaseContext } from "../../contexts/FirebaseContext";
+
 import { Avatar } from "../Avatar";
-import plusIcon from "../../assets/plus-v2.png";
-import "./NewChat.css";
+
+import plusIcon from "../../assets/plus.png";
 
 export function NewChat() {
   const { saveChat, userExists } = useContext(FirebaseContext);
@@ -13,7 +16,9 @@ export function NewChat() {
     const userId = await userExists(contactId);
     if (userId) {
       saveChat(userId[0]);
-    } else { alert("Usuario inexistente"); }
+    } else {
+      alert("Usuario inexistente");
+    }
     setcontactId("");
   };
 

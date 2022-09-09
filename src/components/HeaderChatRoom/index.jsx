@@ -10,7 +10,9 @@ export function HeaderChatRoom({ uImage, userName }) {
         <div className="partner__name">{userName}</div>
       </div>
       <Menu>
-        <li>Some Option</li>
+        <li>
+          <button type="button">Some Option</button>
+        </li>
       </Menu>
     </div>
   );

@@ -14,7 +14,11 @@ export function UserProfile() {
       <Avatar uImage={account.avatar} />
       <h4 className="user-nickname">{account.user_id}</h4>
       <Menu>
-        <li onClick={logOut}>Log out</li>
+        <li>
+          <button type="button" onClick={logOut}>
+            Log Out
+          </button>
+        </li>
       </Menu>
     </div>
   );
