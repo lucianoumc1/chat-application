@@ -16,9 +16,10 @@ export function ChatRoom() {
         {chatId && (
           <>
             {chatMessages.map(
-              (el) => (el.sender_id === account.uid && (
-                <MessageSent message={el.text} key={el.id} />
-              )) || (<MessageReceived message={el.text} key={el.id} />),
+              (el) =>
+                (el.sender_id === account.id && (
+                  <MessageSent message={el.text} key={el.id} />
+                )) || <MessageReceived message={el.text} key={el.id} />
             )}
           </>
         )}

@@ -1,9 +1,4 @@
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import {
   collection,
   addDoc,
@@ -14,48 +9,31 @@ import {
   serverTimestamp,
   doc,
   getDoc,
-  setDoc,
   where,
   getDocs,
 } from "firebase/firestore";
 import { createContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Auth, db } from "./FirebaseApp";
 
 export const FirebaseContext = createContext();
 export function FirebaseProvider({ children }) {
-  // login whit google
-
-  const provider = new GoogleAuthProvider();
-
+  const navigate = useNavigate();
   const [account, setAccount] = useState(null);
 
-  const logIn = () => signInWithPopup(Auth, provider);
-  const logOut = () => signOut(Auth);
-
+  // AGREEGAR USUARIOS
   const getUser = async (user) => {
     const docRef = query(doc(db, "users", user));
-    const docSnap = await getDoc(docRef);
-    return docSnap.exists();
-  };
-
-  const saveUser = (user) => {
-    const querySaveChat = query(doc(db, "users", user.uid));
-    const docData = {
-      id: user.uid,
-      user_name: user.displayName,
-      user_id: user.email.replace("@gmail.com", ""),
-      avatar: user.reloadUserInfo.photoUrl,
-    };
-    setDoc(querySaveChat, docData)
-      .catch((e) => console.error(e.message));
+    const userData = await getDoc(docRef);
+    return userData.data();
   };
 
   useEffect(() => {
-    onAuthStateChanged(Auth, (user) => {
+    onAuthStateChanged(Auth, async (user) => {
       if (user) {
         getUser(user.uid)
-          .then((data) => !data && saveUser(user));
-        setAccount(user);
+          .then((data) => data && setAccount(data))
+          .then(() => navigate("/"));
       } else {
         setAccount(null);
       }
@@ -68,35 +46,35 @@ export function FirebaseProvider({ children }) {
     const docRef = query(collection(db, "chats"));
     const docData = {
       timestamp: serverTimestamp(),
-      users: [account.uid, contactUid],
+      users: [account.id, contactUid],
     };
-    addDoc(docRef, docData)
-      .catch((err) => console.error(err.message));
+    addDoc(docRef, docData).catch((err) => console.error(err.message));
   };
 
   const updateChat = (chatId) => {
     const docRef = query(doc(db, "chats", chatId));
     const docData = { timestamp: serverTimestamp() };
-    updateDoc(docRef, docData)
-      .catch((err) => console.error(err.message));
+    updateDoc(docRef, docData).catch((err) => console.error(err.message));
   };
 
   const saveMessage = (chatId, message) => {
     updateChat(chatId);
     const docRef = query(collection(db, "chats", chatId, "Messages"));
     const docData = {
-      sender_id: account.uid,
+      sender_id: account.id,
       text: message,
       timestamp: serverTimestamp(),
       state: false,
     };
-    addDoc(docRef, docData)
-      .catch((err) => console.error(err.message));
+    addDoc(docRef, docData).catch((err) => console.error(err.message));
   };
 
   // Get
   const userExists = async (contactUserName) => {
-    const docRef = query(collection(db, "users"), where("user_id", "==", contactUserName));
+    const docRef = query(
+      collection(db, "users"),
+      where("user_id", "==", contactUserName)
+    );
     const docSnap = await getDocs(docRef);
     const result = [];
     docSnap.forEach((snap) => result.push(snap.id));
@@ -108,11 +86,12 @@ export function FirebaseProvider({ children }) {
   const [chatId, setChatId] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
     try {
       const queryGetMessages = query(
         collection(db, "chats", chatId.id, "Messages"),
-        orderBy("timestamp", "asc"),
+        orderBy("timestamp", "asc")
       );
 
       const unsubscribe = onSnapshot(queryGetMessages, (querySnapshot) => {
@@ -133,8 +112,6 @@ export function FirebaseProvider({ children }) {
     <FirebaseContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        logIn,
-        logOut,
         account,
         saveChat,
         saveMessage,
