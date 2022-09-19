@@ -1,79 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  query,
-  doc,
-  getDoc,
-  collection,
-  where,
-  orderBy,
-  onSnapshot,
-} from "firebase/firestore";
-import { FirebaseContext } from "../../contexts/FirebaseContext";
+import "./ChatList.css";
+
+import { useState } from "react";
+import chatsHandler from "../../services/chatsHandler";
+
 import { UserProfile } from "../UserProfile";
 import { SearchBar } from "./SearchBar";
 import { ChatItem } from "../ChatItem";
 import { NewChat } from "../NewChat";
-import "./ChatList.css";
 
 export function ChatsList() {
-  const { db, account } = useContext(FirebaseContext);
-  const [chatList, setChatList] = useState([]);
+  const chats = chatsHandler();
 
-  useEffect(() => {
-    try {
-      const userId = account.id;
-      const queryMessages = query(
-        collection(db, "chats"),
-        where("users", "array-contains", userId),
-        orderBy("timestamp", "desc")
-      );
+  const [chatsFilter, setChatsFilter] = useState("");
 
-      onSnapshot(queryMessages, (querySnapshot) => {
-        const newChats = [];
-        querySnapshot.forEach((res) => {
-          const usersList = res.data().users.filter((el) => el !== userId)[0];
-          newChats.push({ id: res.id, user: usersList });
-        });
-        setChatList(newChats);
-      });
-    } catch (e) {
-      setChatList([]);
-    }
-  }, []);
-
-  const [chatsProfile, setChatsProfile] = useState([]);
-
-  useEffect(() => {
-    try {
-      const newChatsProfile = chatList.map(async (user) => {
-        const docRef = query(doc(db, "users", user.user));
-        const docSnap = await getDoc(docRef);
-        const response = docSnap.data();
-        return {
-          chatId: user.id,
-          userName: response.user_id,
-          avatar: response.avatar,
-        };
-      });
-      Promise.all(newChatsProfile).then((response) =>
-        setChatsProfile(response)
-      );
-    } catch (error) {
-      setChatsProfile({});
-    }
-  }, [chatList]);
-
-  const [chatFilter, setChatFilter] = useState("");
-  const filterChatsProfile = chatsProfile.filter((chat) => {
+  const filterChats = chats.filter((chat) => {
     const nameInLowerCase = chat.userName.toLowerCase();
-    return nameInLowerCase.includes(chatFilter);
+    return nameInLowerCase.includes(chatsFilter);
   });
+
   return (
     <div className="chat-list__container">
       <UserProfile />
-      <SearchBar chatFilter={chatFilter} setChatFilter={setChatFilter} />
+      <SearchBar chatFilter={chatsFilter} setChatFilter={setChatsFilter} />
       <div className="chat-list__users">
-        {filterChatsProfile.map((el) => (
+        {filterChats.map((el) => (
           <ChatItem
             name={el.userName}
             id={el.chatId}
@@ -82,7 +32,7 @@ export function ChatsList() {
           />
         ))}
       </div>
-      <NewChat />
+      <NewChat chats={chats} />
     </div>
   );
 }

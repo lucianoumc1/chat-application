@@ -2,22 +2,26 @@ import "./NewChat.css";
 
 import { useState, useContext } from "react";
 import { FirebaseContext } from "../../contexts/FirebaseContext";
-
+import { saveChat, userExists } from "../../services/chatsService";
 import { Avatar } from "../Avatar";
-
 import plusIcon from "../../assets/plus.png";
 
-export function NewChat() {
-  const { saveChat, userExists } = useContext(FirebaseContext);
+export function NewChat({ chats }) {
+  const { account } = useContext(FirebaseContext);
   const [contactId, setcontactId] = useState("");
+
+  const alreadyExistsChat = (username) => {
+    const exists = chats.find((chat) => chat.userName === username);
+    return exists;
+  };
 
   const createNewChat = async (e) => {
     e.preventDefault();
     const userId = await userExists(contactId);
-    if (userId) {
-      saveChat(userId[0]);
+    if (!alreadyExistsChat(contactId) && userId) {
+      saveChat(account.id, userId[0]);
     } else {
-      alert("Usuario inexistente");
+      console.log("Usuario inexistente");
     }
     setcontactId("");
   };
