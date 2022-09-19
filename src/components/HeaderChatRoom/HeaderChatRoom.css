@@ -8,13 +8,12 @@
   justify-content: space-between;
   position: absolute;
   top: 0;
+  z-index: 50;
 }
-
 .header-chat__partner {
   display: flex;
   align-items: center;
 }
-
 .partner__name {
   margin-left: 1rem;
   color: white;
