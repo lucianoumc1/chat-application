@@ -1,0 +1,14 @@
+.change-avatar__container {
+  text-align: center;
+}
+.change-avatar__container h1 {
+  padding-bottom: 2rem;
+}
+.change-avatar__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 2rem;
+}
