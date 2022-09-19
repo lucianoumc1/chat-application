@@ -1,6 +1,8 @@
 import "./App.css";
+
 import { Routes, Route } from "react-router-dom";
 import { FirebaseProvider } from "../../contexts/FirebaseContext";
+
 import { Header } from "../Header";
 import ProtectedRoute from "../ProtectedRoute";
 import MainApp from "./MainApp";

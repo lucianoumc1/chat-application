@@ -1,14 +1,16 @@
-import { useContext, useState } from "react";
-import { FirebaseContext } from "../../contexts/FirebaseContext";
 import "./MessageSendingForm.css";
 
+import { useContext, useState } from "react";
+import { FirebaseContext } from "../../contexts/FirebaseContext";
+import { saveMessage } from "../../services/chatsService";
+
 export function MessageSendingForm() {
-  const { saveMessage, chatId } = useContext(FirebaseContext);
+  const { chatId, account } = useContext(FirebaseContext);
   const [messageText, setMessageText] = useState("");
 
   const sendMessage = (e) => {
     e.preventDefault();
-    saveMessage(chatId.id, messageText);
+    saveMessage(chatId.id, messageText, account.id);
     setMessageText("");
   };
 
