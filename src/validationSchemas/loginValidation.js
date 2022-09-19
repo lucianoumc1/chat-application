@@ -1,13 +1,12 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import authWithEmailAndPassword from "../services/authWithEmailAndPassword";
+import { signInWithEmail } from "../services/authService";
 
 export default function loginValidation() {
   const initialValues = {
     email: "",
     password: "",
   };
-  const { signIn } = authWithEmailAndPassword();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email().required(),
@@ -15,7 +14,7 @@ export default function loginValidation() {
   });
 
   const onSubmit = (values) => {
-    signIn(values);
+    signInWithEmail(values);
   };
 
   const formik = useFormik({

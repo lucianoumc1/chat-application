@@ -1,10 +1,8 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import authWithEmailAndPassword from "../services/authWithEmailAndPassword";
+import { createUserWithEmail } from "../services/authService";
 
 export default function registerValidation() {
-  const { createUser } = authWithEmailAndPassword();
-
   const initialValues = {
     name: "",
     email: "",
@@ -24,7 +22,7 @@ export default function registerValidation() {
   });
 
   const onSubmit = (values) => {
-    createUser(values);
+    createUserWithEmail(values);
   };
 
   const formik = useFormik({
