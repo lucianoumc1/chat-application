@@ -32,11 +32,16 @@
 }
 .chat-room__messages-container {
   width: 100%;
-  height: auto;
+  height: 100%;
   margin: 80px 0 70px;
   padding-bottom: 2rem;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   overflow-y: scroll;
+  background-image: url("../../assets/chat-room-background.png");
+  background-color: var(--color-primary);
+  background-position: center;
+  background-size: auto;
+  background-repeat: repeat;
 }

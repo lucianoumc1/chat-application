@@ -1,5 +1,5 @@
 import "./ChatRoom.css";
-import { useContext } from "react";
+import { useContext, useRef, useEffect } from "react";
 import { MessageSendingForm } from "../MessageSendingForm";
 import { MessageReceived } from "../MessageReceived";
 import { MessageSent } from "../MessageSent";
@@ -8,6 +8,12 @@ import { FirebaseContext } from "../../contexts/FirebaseContext";
 
 export function ChatRoom() {
   const { chatMessages, account, chatId } = useContext(FirebaseContext);
+  const chatRoom = useRef(null);
+
+  useEffect(() => {
+    const chatRoomHeight = chatRoom?.current?.scrollHeight;
+    chatRoom?.current?.scrollTo(0, chatRoomHeight);
+  }, [chatMessages]);
 
   return (
     <div className="chat-room__container">
@@ -24,7 +30,7 @@ export function ChatRoom() {
       {chatId && (
         <>
           <HeaderChatRoom uImage={chatId.uImage} userName={chatId.name} />
-          <div className="chat-room__messages-container">
+          <div className="chat-room__messages-container" ref={chatRoom}>
             {chatMessages.map(
               (el) =>
                 (el.sender_id === account.id && (

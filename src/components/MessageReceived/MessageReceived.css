@@ -8,7 +8,7 @@
 }
 .message-received__item {
   padding: 1rem 2rem;
-  background-color: gray;
+  background-color: #202c33;
   border-radius: 10px;
   position: relative;
 }
