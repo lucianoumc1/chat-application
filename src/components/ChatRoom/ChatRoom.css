@@ -5,6 +5,11 @@
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  background-image: url("../../assets/chat-room-background.png");
+  background-color: var(--color-primary);
+  background-position: center;
+  background-size: auto;
+  background-repeat: repeat;
 }
 .chat-room__cover-default {
   width: 100%;
@@ -39,9 +44,6 @@
   justify-content: flex-start;
   flex-direction: column;
   overflow-y: scroll;
-  background-image: url("../../assets/chat-room-background.png");
-  background-color: var(--color-primary);
-  background-position: center;
-  background-size: auto;
-  background-repeat: repeat;
+  /* backdrop-filter: brightness(0.2) opacity(0.9); */
+  background-color: #0b141ade;
 }
