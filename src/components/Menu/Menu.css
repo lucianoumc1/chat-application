@@ -9,13 +9,14 @@
   background-image: url("../../assets/menu-vertical.png");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 2.7rem;
+  background-size: 2.2rem;
 }
 .more-options__icon:hover {
-  background-color: #3648536f;
+  background-color: rgba(255, 255, 255, 0.16);
 }
 .options__container ul {
   display: none;
+  padding: 1rem 0;
 }
 .options__container:hover ul,
 ul:hover ul {
@@ -23,21 +24,25 @@ ul:hover ul {
   border-radius: 2px;
   overflow: hidden;
   width: 150px;
-  background-color: #202c33;
+  background-color: #233138;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 40px;
   left: -120px;
 }
+.options__container ul li {
+  padding: 0 1rem;
+}
 .options__container ul li:hover {
-  background-color: #2a3942;
+  background-color: var(--color-background-input);
 }
 .options__container ul li button {
   padding: 1rem 0;
   background: transparent;
   width: 100%;
-  height: 100%;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: white;
   border: none;
   outline: none;
+  text-align: start;
 }

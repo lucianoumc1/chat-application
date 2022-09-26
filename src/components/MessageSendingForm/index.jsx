@@ -23,7 +23,6 @@ export function MessageSendingForm() {
         value={messageText}
         onChange={(ev) => setMessageText(ev.target.value)}
       />
-      <input className="message-form__input--submit" type="submit" value=">" />
     </form>
   );
 }

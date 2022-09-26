@@ -30,7 +30,10 @@ export function ChatRoom() {
       {chatId && (
         <>
           <HeaderChatRoom uImage={chatId.uImage} userName={chatId.name} />
-          <div className="chat-room__messages-container" ref={chatRoom}>
+          <div
+            className="chat-room__messages-container fancy-scrollbar"
+            ref={chatRoom}
+          >
             {chatMessages.map(
               (el) =>
                 (el.sender_id === account.id && (

@@ -44,6 +44,5 @@
   justify-content: flex-start;
   flex-direction: column;
   overflow-y: scroll;
-  /* backdrop-filter: brightness(0.2) opacity(0.9); */
   background-color: #0b141ade;
 }

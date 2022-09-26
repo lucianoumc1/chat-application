@@ -1,27 +1,27 @@
 .chat-list__container {
   width: 30%;
   height: 100%;
-  background-color: var(--color-secondary);
+  background-color: var(--color-terciary);
 }
 .search-bar__container {
   height: 30px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: var(--color-background-input);
-  margin: 1rem 2rem 0;
-  border-radius: 10px;
+  background-color: var(--color-primary);
+  margin: 1rem 2rem;
+  border-radius: 8px;
   overflow: hidden;
 }
 .search-bar__search-icon {
-  height: 20px;
-  padding-left: .5rem;
+  height: 18px;
+  padding-left: 0.5rem;
   object-fit: cover;
   object-position: center;
 }
 .search-bar__input {
   height: 100%;
-  width: auto;
+  width: 100%;
   background-color: transparent;
   border: none;
   outline: none;

@@ -2,7 +2,7 @@
   width: 100%;
   height: 80px;
   padding: 0 2rem;
-  background-color: var(--color-terciary);
+  background-color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
