@@ -4,13 +4,19 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { query, doc, setDoc, getDoc } from "firebase/firestore";
+import { query, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 import { Auth, db } from "../contexts/FirebaseContext/FirebaseApp";
 
 const getUser = async (userId) => {
   const docRef = query(doc(db, "users", userId));
   const userData = await getDoc(docRef);
   return userData.data();
+};
+
+const updateUser = (data, userId) => {
+  const docRef = query(doc(db, "users", userId));
+  const docData = data;
+  updateDoc(docRef, docData).catch((err) => console.error(err.message));
 };
 
 const saveUserWithService = (user) => {
@@ -80,5 +86,6 @@ export {
   createUserWithEmail,
   signInWithEmail,
   getUser,
+  updateUser,
   saveUserWithService,
 };

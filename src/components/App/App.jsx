@@ -23,6 +23,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/change-avatar"
+            element={
+              <ProtectedRoute>
+                <MainApp openModal />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>

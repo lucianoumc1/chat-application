@@ -12,3 +12,26 @@
   width: 100%;
   gap: 2rem;
 }
+.change-avatar__exit-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-input);
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #fff;
+  border-radius: 50%;
+}
+.change-avatar__exit-button img {
+  height: 100%;
+  padding: 0.5rem;
+  object-position: center;
+  object-fit: cover;
+  transform: rotate(45deg);
+}
