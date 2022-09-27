@@ -4,11 +4,18 @@
  WhatsApp Clone is a personal project, which I am currently working on, to learn a little more about react.
  The app is used to manage the sending of messages between users, in real time.
  
- ### Login with Google
+ ## Link to production
+https://whatsapp-dev.vercel.app/
  
- ![Login](https://user-images.githubusercontent.com/78552425/170057413-37eabcbc-ae25-46ad-9b4d-92a7937a44c3.jpeg)
+ ### Login with Email, Google and Github.
  
- ![whatsapp-clone-gif](https://user-images.githubusercontent.com/78552425/170057992-a25c12a9-a757-459d-9767-5754b5278f08.gif)
+![whatsapp-dev-login-screen](https://user-images.githubusercontent.com/78552425/192619579-b12ee933-06c2-4c31-adce-d83fb0015ad4.png)
+
+ ### Register
+ ![whatsapp-dev-register-screen](https://user-images.githubusercontent.com/78552425/192619854-6212afbd-6155-4b66-b8bf-4fd27cd8b4c5.png)
+
+ ### Main
+![whatsapp-dev-main-screen](https://user-images.githubusercontent.com/78552425/192620593-e3b1eab1-421e-44ed-b392-9147dbcafe66.png)
 
  ### State
     In process.
@@ -36,6 +43,9 @@ $ yarn dev
 + JavaScript
 + React Hooks
 + EsLint
++ Yup
++ Formik
++ React Router
 + [CreateReactApp](https://create-react-app.dev/)
 + [FireBase](https://firebase.google.com/)
 
@@ -46,5 +56,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 - [ ] Attach media files
 - [ ] Emoji menu
 - [ ] Chat groups
-- [ ] Login with user and password
-- [ ] Edit profile
+- [x] Login with user and password
+- [x] Change avatar
