@@ -63,11 +63,9 @@ export default function useGetChats() {
 
     onSnapshot(queryMessages, (querySnapshot) => {
       const newChats = [];
-      querySnapshot.docChanges().forEach((res) => {
-        const usersList = res.doc
-          .data()
-          ?.users.filter((el) => el !== userId)[0];
-        newChats.push({ user: usersList, id: res.doc.id });
+      querySnapshot.forEach((res) => {
+        const usersList = res.data()?.users.filter((el) => el !== userId)[0];
+        newChats.push({ user: usersList, id: res.id });
       });
       setChatList(newChats);
     });
@@ -78,7 +76,9 @@ export default function useGetChats() {
   }, []);
 
   useEffect(() => {
-    getChatsData(chatList).then((res) => setChatsProfile(res));
+    getChatsData(chatList).then((res) => {
+      setChatsProfile(res);
+    });
   }, [chatList]);
 
   return chatsProfile;

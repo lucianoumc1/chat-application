@@ -11,7 +11,7 @@ import { NewChat } from "../NewChat";
 export function ChatsList() {
   const [chatsFilter, setChatsFilter] = useState("");
 
-  const chats = useGetChats();
+  const chats = useGetChats() || [];
 
   const filterChats = chats.filter((chat) => {
     const nameInLowerCase = chat.userName.toLowerCase();
