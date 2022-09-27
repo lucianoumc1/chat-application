@@ -32,6 +32,10 @@ h3 {
 }
 .primary-button {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   padding: 1.2rem 0;
   border: 1px solid transparent;
   color: white;
