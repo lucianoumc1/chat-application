@@ -1,7 +1,7 @@
 
  # WhatsApp Dev
 ## About The Project
- WhatsApp Clone is a personal project, which I am currently working on, to learn a little more about react.
+ WhatsApp Dev is a personal project, which I am currently working on, to learn a little more about react.
  The app is used to manage the sending of messages between users, in real time.
  
  ## Link to production
@@ -18,7 +18,7 @@ https://whatsapp-dev.vercel.app/
 ![whatsapp-dev-main-screen](https://user-images.githubusercontent.com/78552425/192620593-e3b1eab1-421e-44ed-b392-9147dbcafe66.png)
 
  ### State
-    In process.
+    First Version
 ## Getting Started 
 Clone respository:
 ```
