@@ -1,5 +1,5 @@
 
- # WhatsApp Clone
+ # WhatsApp Dev
 ## About The Project
  WhatsApp Clone is a personal project, which I am currently working on, to learn a little more about react.
  The app is used to manage the sending of messages between users, in real time.
