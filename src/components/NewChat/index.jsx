@@ -1,10 +1,10 @@
 import "./NewChat.css";
-
 import { useState, useContext } from "react";
 import { FirebaseContext } from "../../contexts/FirebaseContext";
 import { saveChat, userExists } from "../../services/chatsService";
 import { Avatar } from "../Avatar";
 import plusIcon from "../../assets/plus.png";
+import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 export function NewChat({ chats }) {
   const { account } = useContext(FirebaseContext);
@@ -21,7 +21,7 @@ export function NewChat({ chats }) {
     if (!alreadyExistsChat(contactId) && userId) {
       saveChat(account.id, userId[0]);
     } else {
-      console.log("Usuario inexistente");
+      useErrorHandler("User does not exist");
     }
     setcontactId("");
   };

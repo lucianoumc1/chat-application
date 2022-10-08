@@ -9,6 +9,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../contexts/FirebaseContext/FirebaseApp";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 
 const saveChat = (userId, contactUid) => {
   const docRef = query(collection(db, "chats"));
@@ -16,13 +17,17 @@ const saveChat = (userId, contactUid) => {
     timestamp: serverTimestamp(),
     users: [userId, contactUid],
   };
-  addDoc(docRef, docData).catch((err) => console.error(err.message));
+  addDoc(docRef, docData).catch(() =>
+    useErrorHandler("server error, please try again later")
+  );
 };
 
 const updateChat = (chatId) => {
   const docRef = query(doc(db, "chats", chatId));
   const docData = { timestamp: serverTimestamp() };
-  updateDoc(docRef, docData).catch((err) => console.error(err.message));
+  updateDoc(docRef, docData).catch(() =>
+    useErrorHandler("server error, please try again later")
+  );
 };
 
 const saveMessage = (chatId, message, userId) => {
@@ -34,7 +39,9 @@ const saveMessage = (chatId, message, userId) => {
     timestamp: serverTimestamp(),
     state: false,
   };
-  addDoc(docRef, docData).catch((err) => console.error(err.message));
+  addDoc(docRef, docData).catch(() =>
+    useErrorHandler("server error, please try again later")
+  );
 };
 
 const userExists = async (userName) => {

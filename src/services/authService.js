@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { query, doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
+import { useErrorHandler } from "../hooks/useErrorHandler";
 import { Auth, db } from "../contexts/FirebaseContext/FirebaseApp";
 
 const getUser = async (userId) => {
@@ -16,7 +17,9 @@ const getUser = async (userId) => {
 const updateUser = (data, userId) => {
   const docRef = query(doc(db, "users", userId));
   const docData = data;
-  updateDoc(docRef, docData).catch((err) => console.error(err.message));
+  updateDoc(docRef, docData).catch(() =>
+    useErrorHandler("server error, please try again later")
+  );
 };
 
 const saveUserWithService = (user) => {
@@ -33,7 +36,7 @@ const saveUserWithService = (user) => {
   };
   return setDoc(querySaveChat, docData)
     .then(() => getUser(user.uid))
-    .catch((e) => console.error(e.message));
+    .catch(() => useErrorHandler("server error, please try again later"));
 };
 
 const logInWithPopup = (provider) => signInWithPopup(Auth, provider);
@@ -50,7 +53,9 @@ const saveUserWithEmail = (user) => {
     user_id: userId,
     avatar: user.avatar,
   };
-  setDoc(querySaveChat, docData).catch((e) => console.error(e.message));
+  setDoc(querySaveChat, docData).catch(() =>
+    useErrorHandler("server error, please try again later")
+  );
 };
 
 const createUserWithEmail = (data) => {
@@ -61,9 +66,8 @@ const createUserWithEmail = (data) => {
       saveUserWithEmail(newData);
       return user;
     })
-    .catch((error) => {
-      console.log(error);
-      // ..
+    .catch(() => {
+      useErrorHandler("server error, please try again later");
     });
 };
 
@@ -73,10 +77,8 @@ const signInWithEmail = (data) => {
       const { user } = userCredential;
       return user;
     })
-
-    .catch((error) => {
-      console.log(error);
-      // ..
+    .catch(() => {
+      useErrorHandler("Incorrect username or password");
     });
 };
 
