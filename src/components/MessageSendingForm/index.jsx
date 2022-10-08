@@ -19,7 +19,7 @@ export function MessageSendingForm() {
       <input
         className="message-form__input--text"
         type="text"
-        placeholder="Escribe un mensaje aqui"
+        placeholder="Write a message here"
         value={messageText}
         onChange={(ev) => setMessageText(ev.target.value)}
       />

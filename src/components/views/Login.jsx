@@ -12,10 +12,10 @@ export default function Login() {
   const { errors, values, handleChange, handleSubmit } = loginValidation();
 
   return (
-    <div className="login__wrapper">
-      <div className="login__container">
+    <div className="view__wrapper">
+      <div className="view__container">
         <h3>Login</h3>
-        <form className="login__form" onSubmit={handleSubmit}>
+        <form className="view__form" onSubmit={handleSubmit}>
           <InputText
             placeholder="Email"
             type="text"
@@ -39,7 +39,7 @@ export default function Login() {
         <Link to="/register" className="link">
           Create account
         </Link>
-        <div className="login__services">
+        <div className="view__services">
           <LoginWithGoogle />
           <LoginWithGithub />
         </div>

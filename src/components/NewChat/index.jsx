@@ -28,14 +28,16 @@ export function NewChat({ chats }) {
 
   return (
     <form className="new-chat__container" onSubmit={createNewChat}>
-      <Avatar uImage={plusIcon} />
       <input
         className="new-chat__input-text"
         type="text"
-        placeholder="New chat"
+        placeholder="Create a new chat..."
         value={contactId}
         onChange={(ev) => setcontactId(ev.target.value)}
       />
+      <button className="new-chat__submit-btn" type="submit">
+        <Avatar uImage={plusIcon} />
+      </button>
     </form>
   );
 }

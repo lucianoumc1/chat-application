@@ -1,29 +1,31 @@
-.login__wrapper {
+.view__wrapper {
   width: 100%;
-  height: calc(100vh - 10rem);
+  margin-top: 2rem;
+  min-height: calc(100vh - 12rem);
   position: relative;
   text-align: center;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 h3 {
   font-size: 1.8rem;
   margin-bottom: 2rem;
   text-align: center;
 }
-.login__container {
+.view__container {
   border: 1px solid var(--color-gray-light);
   border-radius: 2px;
   min-width: 350px;
   width: 40%;
   max-width: 600px;
   min-height: 350px;
+  height: max-content;
   padding: 4rem;
   margin: 0 auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
-.login__form {
+.view__form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,7 +82,7 @@ h3 {
   opacity: 0.8;
   text-decoration: underline;
 }
-.login__services {
+.view__services {
   display: flex;
   align-items: center;
   flex-direction: column;

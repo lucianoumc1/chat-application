@@ -11,10 +11,10 @@ export default function Register() {
   const formik = registerValidation();
 
   return (
-    <div className="login__wrapper">
-      <div className="login__container">
+    <div className="view__wrapper">
+      <div className="view__container">
         <h3>Register</h3>
-        <form className="login__form" onSubmit={formik.handleSubmit}>
+        <form className="view__form" onSubmit={formik.handleSubmit}>
           <InputText
             placeholder="Full name"
             type="text"
