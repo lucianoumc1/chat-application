@@ -4,6 +4,7 @@ import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Auth, db } from "./FirebaseApp";
 import { getUser, saveUserWithService } from "../../services/authService";
+import { useErrorHandler } from "../../hooks/useErrorHandler";
 
 export const FirebaseContext = createContext();
 
@@ -11,7 +12,6 @@ export function FirebaseProvider({ children }) {
   const navigate = useNavigate();
   const [account, setAccount] = useState(null);
 
-  // AGREEGAR USUARIOS
   useEffect(() => {
     onAuthStateChanged(Auth, async (user) => {
       if (user) {
@@ -28,8 +28,8 @@ export function FirebaseProvider({ children }) {
           .then(() => {
             navigate("/");
           })
-          .catch((error) => {
-            console.log(error.message);
+          .catch(() => {
+            useErrorHandler("server error, please try again later");
           });
       } else {
         setAccount(null);

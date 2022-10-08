@@ -13,9 +13,7 @@ export default function loginValidation() {
     password: Yup.string().min(6).max(24).required(),
   });
 
-  const onSubmit = (values) => {
-    signInWithEmail(values);
-  };
+  const onSubmit = signInWithEmail;
 
   const formik = useFormik({
     initialValues,
