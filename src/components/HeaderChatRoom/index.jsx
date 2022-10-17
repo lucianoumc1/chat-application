@@ -1,5 +1,5 @@
 import { Avatar } from "../Avatar";
-import { Menu } from "../Menu";
+// import { Menu } from "../Menu";
 import "./HeaderChatRoom.css";
 
 export function HeaderChatRoom({ uImage, userName }) {
@@ -9,11 +9,11 @@ export function HeaderChatRoom({ uImage, userName }) {
         <Avatar uImage={uImage} />
         <div className="partner__name">{userName}</div>
       </div>
-      <Menu>
+      {/* <Menu>
         <li>
           <button type="button">Some Option</button>
         </li>
-      </Menu>
+      </Menu> */}
     </div>
   );
 }

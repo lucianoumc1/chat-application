@@ -2,8 +2,12 @@
   width: 30%;
   height: 100%;
   background-color: var(--color-terciary);
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
 }
 .search-bar__container {
+  min-height: 30px;
   height: 30px;
   display: flex;
   align-items: center;
@@ -14,6 +18,7 @@
   overflow: hidden;
 }
 .search-bar__search-icon {
+  min-height: 18px;
   height: 18px;
   padding-left: 0.5rem;
   object-fit: cover;
@@ -30,10 +35,9 @@
   font-size: 1.5rem;
 }
 .chat-list__users {
-  margin-top: 1rem;
   border-top: 1px solid rgba(128, 128, 128, 0.303);
   padding: 1rem;
   min-height: 10%;
-  max-height: 70%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
