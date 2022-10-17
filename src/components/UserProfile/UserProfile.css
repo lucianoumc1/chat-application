@@ -1,5 +1,6 @@
 .user__container {
   width: 100%;
+  min-height: 80px;
   height: 80px;
   padding-left: 1.5rem;
   background-color: var(--color-primary);

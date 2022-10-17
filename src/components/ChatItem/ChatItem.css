@@ -5,6 +5,7 @@
   align-items: center;
   border-bottom: 1px solid rgba(128, 128, 128, 0.303);
   justify-content: flex-start;
+  cursor: pointer;
 }
 .chat-item__container:hover {
   background-color: var(--color-background-input);
