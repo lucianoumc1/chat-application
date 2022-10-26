@@ -44,7 +44,8 @@ const logInWithPopup = (provider) => signInWithPopup(Auth, provider);
 const logOut = () => signOut(Auth);
 
 const saveUserWithEmail = (user) => {
-  const userId = user.email.split(/@/)[0];
+  const firstLetterDomain = user.email.split(/@/)[1][0];
+  const userId = `${user.email.split(/@/)[0]}-${firstLetterDomain}`;
 
   const querySaveChat = query(doc(db, "users", user.uid));
   const docData = {
