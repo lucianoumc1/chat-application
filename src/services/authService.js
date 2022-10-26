@@ -44,7 +44,8 @@ const logInWithPopup = (provider) => signInWithPopup(Auth, provider);
 const logOut = () => signOut(Auth);
 
 const saveUserWithEmail = (user) => {
-  const userId = user.email.split(/@/)[0];
+  const firstLetterDomain = user.email.split(/@/)[1][0];
+  const userId = `${user.email.split(/@/)[0]}-${firstLetterDomain}`;
 
   const querySaveChat = query(doc(db, "users", user.uid));
   const docData = {
@@ -66,8 +67,14 @@ const createUserWithEmail = (data) => {
       saveUserWithEmail(newData);
       return user;
     })
-    .catch(() => {
-      useErrorHandler("server error, please try again later");
+    .catch((res) => {
+      const emailAlreadyInUseAlert =
+        "Firebase: Error (auth/email-already-in-use).";
+      if (res.message === emailAlreadyInUseAlert) {
+        useErrorHandler("An account already exists with this email");
+      } else {
+        useErrorHandler("server error, please try again later");
+      }
     });
 };
 
