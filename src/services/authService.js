@@ -14,10 +14,10 @@ const getUser = async (userId) => {
   return userData.data();
 };
 
-const updateUser = (data, userId) => {
+const updateUser = async (data, userId) => {
   const docRef = query(doc(db, "users", userId));
   const docData = data;
-  updateDoc(docRef, docData).catch(() =>
+  return updateDoc(docRef, docData).catch(() =>
     useErrorHandler("server error, please try again later")
   );
 };

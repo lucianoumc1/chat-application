@@ -18,8 +18,10 @@ export default function updateAvatarValidation() {
   });
 
   const onSubmit = (values) => {
-    updateUser(values, account.id);
-    navigate("/");
+    updateUser(values, account.id).then(() => {
+      navigate("/");
+      window.location.reload();
+    });
   };
 
   const formik = useFormik({
