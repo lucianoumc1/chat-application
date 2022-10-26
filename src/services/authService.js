@@ -67,8 +67,14 @@ const createUserWithEmail = (data) => {
       saveUserWithEmail(newData);
       return user;
     })
-    .catch(() => {
-      useErrorHandler("server error, please try again later");
+    .catch((res) => {
+      const emailAlreadyInUseAlert =
+        "Firebase: Error (auth/email-already-in-use).";
+      if (res.message === emailAlreadyInUseAlert) {
+        useErrorHandler("An account already exists with this email");
+      } else {
+        useErrorHandler("server error, please try again later");
+      }
     });
 };
 
